@@ -7,12 +7,25 @@
     <meta name="author" content="Yuichi Hagio">
     <meta name="description" content="Health Tracking App">
     <title>Health Tracker</title>
-    <style media="screen" src="css/bundle.css"></style>
+    <link rel="stylesheet" href="css/main.css"></link>
   </head>
   <body>
-    
+    <div class="container">
+      <header>
+        <h1>Health Tracker</h1>
+      </header>
 
+      <form class="form">
+        <input type="text" class="inputForm" placeholder="Type a food name" required autofocus>
+        <button type="submit" class="submitButton">Search</button>
+      </form>
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.2/backbone-min.js"></script>
-    <script src="js/bundle.js"></script>
+    <!-- <script src="js/bundle.js"></script> -->
   </body>
 </html>

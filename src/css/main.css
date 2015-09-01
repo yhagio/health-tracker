@@ -1,0 +1,39 @@
+html, body {
+  font-family: sans-serif;
+  color: #777;
+}
+
+.container {
+  margin: 10px
+}
+
+header {
+  text-align: center;
+}
+
+.form {
+  width: 100%;
+  text-align: center;
+}
+
+.inputForm {
+  width: 95%;
+  height: 30px;
+  font-size: 1em;
+  padding-left: 5px;
+  outline: 0;
+}
+
+.submitButton {
+  width: 95%;
+  height: 30px;
+  background-color: #ddd;
+  border: none;
+  outline: 0;
+  padding: 5px;
+  font-size: 1em;
+}
+
+.submitButton:hover {
+  background-color: #ccc;
+}

@@ -2,11 +2,14 @@
 
 ###Project Overview
 
-A single page app that tracks the user's calorie intake, and optionally, other health-related metrics. Typing food names into the search field will display a list of matching foods as provided by the health API. Users will be able to select an item from the list, and the item will be added to the list of foods the user is tracking. The total calorie count will also update to reflect the new daily total.
+- A single page app that tracks the user's calorie intake, and optionally, other health-related metrics.
+- Typing food names into the search field will display a list of matching foods as provided by the health API.
+- Users will be able to select an item from the list, and the item will be added to the list of foods the user is tracking.
+- The total calorie count will also update to reflect the new daily total.
 
 ### Todo
 - Implement search bar functionality to the application.
-- Write code required to query a health API when the user searches, and return the results in a list (Nutritionix has a good one).
+- Write code required to query a health API when the user searches, and return the results in a list.
 - Add functionality to add an item to the data store when clicked.
 - Write code required to show the items in the data store, and to display the total number of calories.
 
