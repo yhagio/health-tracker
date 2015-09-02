@@ -15,17 +15,20 @@
         <h1>Health Tracker</h1>
       </header>
 
-      <form class="form">
-        <input type="text" class="inputForm" placeholder="Type a food name" required autofocus>
-        <button type="submit" class="submitButton">Search</button>
-      </form>
+      <div id="formBox">
+        <form class="form">
+          <input type="text" class="inputForm" placeholder="Type a food name" required autofocus>
+          <button type="submit" class="submitButton">Search</button>
+        </form>
+      </div>
 
-
+      <ul id="resultList">
+      </ul>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.2/backbone-min.js"></script>
-    <!-- <script src="js/bundle.js"></script> -->
+    <script src="js/main.js"></script>
   </body>
 </html>
