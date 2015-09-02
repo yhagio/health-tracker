@@ -1,13 +1,16 @@
 "use strict";
 
+// Food Item
 var Food = Backbone.Model.extend({});
 
+// Foods Collection
 var Foods = Backbone.Collection.extend({
   model: Food
 });
 
-var foods = new Foods([]);
-
+// Search View
+// Use Search Form to fetch data from Nutritionix server
+// and display the data as a list
 var SearchView = Backbone.View.extend({
   el: $('#formBox'),
 
@@ -34,34 +37,42 @@ var SearchView = Backbone.View.extend({
       dataType: "JSON",
       success: function(data) {
         // console.log(data.hits);
-        var brandName;
-        var itemName;
-        var calories;
-        var servingSize;
-        var servingUnit;
-        var totalFat;
-        var food;
+        if(data && data.hits.length > 0) {
+          var brandName;
+          var itemName;
+          var calories;
+          var servingSize;
+          var servingUnit;
+          var totalFat;
+          var food;
 
-        for(var i = 0; data.hits.length > i; i++){
-          brandName = data.hits[i].fields.brand_name;
-          itemName = data.hits[i].fields.item_name;
-          calories = data.hits[i].fields.nf_calories;
-          servingSize = data.hits[i].fields.nf_serving_size_qty;
-          servingUnit = data.hits[i].fields.nf_serving_size_unit;
-          totalFat = data.hits[i].fields.nf_total_fat;
+          for(var i = 0; data.hits.length > i; i++){
+            brandName = data.hits[i].fields.brand_name;
+            itemName = data.hits[i].fields.item_name;
+            calories = data.hits[i].fields.nf_calories;
+            servingSize = data.hits[i].fields.nf_serving_size_qty;
+            servingUnit = data.hits[i].fields.nf_serving_size_unit;
+            totalFat = data.hits[i].fields.nf_total_fat || "N/A";
 
-          food = new Food({
-            brandName: brandName,
-            itemName: itemName,
-            calories: calories,
-            servingSize: servingSize,
-            servingUnit: servingUnit,
-            totalFat: totalFat
-          });
+            food = new Food({
+              brandName: brandName,
+              itemName: itemName,
+              calories: calories,
+              servingSize: servingSize,
+              servingUnit: servingUnit,
+              totalFat: totalFat
+            });
 
-          foods.add(food);
+            foods.add(food);
+          }
+        } else {
+          console.log('None');
         }
+
         self.render();
+      },
+      error: function(){
+        console.log('Error on fetching data...');
       }
     });
   },
@@ -69,9 +80,18 @@ var SearchView = Backbone.View.extend({
   render: function(){
     var self = this;
     _(foods.models).each(function(item){
-      $('#resultList').append("<li>" + item.get("itemName") + "</li>");
+      $('#resultList').append(
+        "<li class='listItem'>" +
+          "<p>" + item.get("itemName") + " - " + item.get("brandName") + " <span class='addButtonSpan'><button class='addButton'>Add</button></span>" + "</p>" +
+          "<hr />" +
+          "<p>" + item.get("servingSize") + " " + item.get("servingUnit") + "</p>" +
+          "<p>Calories: " + item.get("calories") + "</p>" +
+          "<p>Total Fat: " + item.get("totalFat") + "</p>" +
+        "</li>");
     }, this);
-}
+  }
 });
 
+// Create Collection and SearchView
+var foods = new Foods([]);
 var searchView = new SearchView();

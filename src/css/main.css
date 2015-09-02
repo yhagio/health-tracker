@@ -3,13 +3,24 @@ html, body {
   color: #777;
 }
 
+ul {
+  list-style-type: none;
+}
+
+button {
+  border: none;
+  outline: 0;
+}
+
 .container {
-  margin: 10px
+  padding: 10px
 }
 
 header {
   text-align: center;
 }
+
+/* Form */
 
 .form {
   width: 100%;
@@ -28,12 +39,36 @@ header {
   width: 95%;
   height: 30px;
   background-color: #ddd;
-  border: none;
-  outline: 0;
   padding: 5px;
   font-size: 1em;
 }
 
-.submitButton:hover {
+.submitButton:active {
+  background-color: #ccc;
+}
+
+/* Result List */
+
+.List {
+  padding: 10px;
+}
+
+.listItem {
+  border: 1px solid #000;
+  padding: 10px;
+  margin: 10px auto;
+}
+
+.addButtonSpan {
+  float: right;
+}
+
+.addButton {
+  width: 50px;
+  height: 33px;
+  font-size: 1em;
+}
+
+.addButton:active {
   background-color: #ccc;
 }
