@@ -16,11 +16,16 @@
       </header>
 
       <div id="main">
+        <!-- The template will be displayed here -->
       </div>
     </div>
 
+    <!-- Search + Search Result template -->
     <script type="text/template" id="search-page-template">
+      <h3>Search Food</h3>
       <a href="#/myfoods">MyFoods</a>
+
+      <!-- Search Form -->
       <div id="formBox">
         <form class="form">
           <input type="text" class="inputForm" placeholder="Type a food name" required autofocus>
@@ -29,15 +34,33 @@
       </div>
 
       <ul id="resultList" class="List">
+        <!-- Display user's search results here -->
       </ul>
     </script>
 
-
+    <!-- My Foods Template -->
     <script type="text/template" id="myfoods-template">
-      <h1>MyFoods</h1>
+      <h3>MyFoods</h3>
       <a href="/">Home</a>
+
       <ul id="myFoods">
+        <!-- Display user's food list -->
       </ul>
+      <hr>
+      <p class="total">
+        Total: <span id="totalCalories">0</span> calories
+      </p>
+    </script>
+
+    <!-- List Item Template -->
+    <script type="text/template" id="list-item-template">
+      <li class='listItem'>
+        <p><%= item.get("itemName") %> - <%= item.get("brandName") %><span class='addButtonSpan'><button class='addButton'>Add</button></span></p>
+        <hr />
+        <p><%= item.get("servingSize") %> <%= item.get("servingUnit") %></p>
+        <p>Calories:<%= item.get("calories") %></p>
+        <p>Total Fat:<%= item.get("totalFat") %></p>
+      </li>
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

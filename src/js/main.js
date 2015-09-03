@@ -83,19 +83,14 @@ var SearchView = Backbone.View.extend({
   },
 
   render: function(){
-    var template = _.template($('#search-page-template').html(), null);
+    var template = _.template($('#search-page-template').html());
     this.$el.html(template);
 
     var self = this;
+    var listTemplate;
     _(foods.models).each(function(item){
-      $('#resultList').append(
-        "<li class='listItem'>" +
-          "<p>" + item.get("itemName") + " - " + item.get("brandName") + " <span class='addButtonSpan'><button class='addButton'>Add</button></span>" + "</p>" +
-          "<hr />" +
-          "<p>" + item.get("servingSize") + " " + item.get("servingUnit") + "</p>" +
-          "<p>Calories: " + item.get("calories") + "</p>" +
-          "<p>Total Fat: " + item.get("totalFat") + "</p>" +
-        "</li>");
+      listTemplate = _.template($("#list-item-template").html());
+      $('#resultList').append(listTemplate({item: item}));
     }, this);
   }
 });
@@ -105,7 +100,7 @@ var MyFoodsView = Backbone.View.extend({
   el: '#main',
 
   render: function(){
-    var template = _.template($('#myfoods-template').html(), null);
+    var template = _.template($('#myfoods-template').html());
     this.$el.html(template);
   }
 });
