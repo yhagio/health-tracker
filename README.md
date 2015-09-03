@@ -25,3 +25,11 @@ Use [http-server](https://www.npmjs.com/package/http-server)
 ### References
 - [Backbone.js](http://backbonejs.org/)
 - [Nutritionix API](https://developer.nutritionix.com/docs/v1_1)
+
+
+### Notes
+
+Routes
+- '/' - User can search foods and it will display the results, and user can add foods from the results to myfoods list
+- '/myfoods' - User can see the total calories of the foods added, and also remove foods
+- '/'

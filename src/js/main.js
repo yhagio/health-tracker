@@ -1,18 +1,23 @@
 "use strict";
 
-// Food Item
+// ======================== Food Item
 var Food = Backbone.Model.extend({});
 
-// Foods Collection
+// ======================== Foods Collection
 var Foods = Backbone.Collection.extend({
   model: Food
 });
 
-// Search View
+// ======================== My Foods Collection
+var MyFoods = Backbone.Collection.extend({
+  model: Food
+});
+
+// ======================== Search View
 // Use Search Form to fetch data from Nutritionix server
 // and display the data as a list
 var SearchView = Backbone.View.extend({
-  el: $('#formBox'),
+  el: $('#main'),
 
   initialize: function(){
     _.bindAll(this, "render");
@@ -36,7 +41,7 @@ var SearchView = Backbone.View.extend({
       url: url,
       dataType: "JSON",
       success: function(data) {
-        // console.log(data.hits);
+        console.log(data.hits);
         if(data && data.hits.length > 0) {
           var brandName;
           var itemName;
@@ -78,6 +83,9 @@ var SearchView = Backbone.View.extend({
   },
 
   render: function(){
+    var template = _.template($('#search-page-template').html(), null);
+    this.$el.html(template);
+
     var self = this;
     _(foods.models).each(function(item){
       $('#resultList').append(
@@ -92,6 +100,38 @@ var SearchView = Backbone.View.extend({
   }
 });
 
-// Create Collection and SearchView
+// ======================== My Foods View
+var MyFoodsView = Backbone.View.extend({
+  el: '#main',
+
+  render: function(){
+    var template = _.template($('#myfoods-template').html(), null);
+    this.$el.html(template);
+  }
+});
+
+// ============= Create Collection and SearchView
 var foods = new Foods([]);
 var searchView = new SearchView();
+var myFoodsView = new MyFoodsView();
+
+
+// ======================== Routing
+var Router = Backbone.Router.extend({
+  routes: {
+    "": "search",
+    "myfoods": "myfoods"
+  }
+});
+
+var router = new Router;
+
+router.on('route:search', function() {
+  searchView.render();
+});
+
+router.on('route:myfoods', function(id) {
+  myFoodsView.render();
+});
+
+Backbone.history.start();
