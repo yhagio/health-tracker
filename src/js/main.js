@@ -6,7 +6,11 @@ var searchResultView;
 var myFoodsView;
 
 // ======================== Food Item
-var Food = Backbone.Model.extend({});
+var Food = Backbone.Model.extend({
+  defaults:{
+		added: false
+	}
+});
 
 // ======================== Foods Collection
 var Foods = Backbone.Collection.extend({
@@ -63,6 +67,7 @@ var SearchBoxView = Backbone.View.extend({
           // Iterate through the fetched data in order to
           // create a model and add it to foods collection
           for(var i = 0; data.hits.length > i; i++){
+            console.log(data.hits[i].fields.item_id);
             id = data.hits[i].fields.item_id;
             brandName = data.hits[i].fields.brand_name;
             itemName = data.hits[i].fields.item_name;
@@ -148,10 +153,12 @@ var FoodItemView = Backbone.View.extend({
 
 	addToMyFoods: function(e) {
     e.preventDefault();
-    var id = $(e.currentTarget).data("id");
-    console.log('adding', id)
-    var item = foods.get(id);
-    var name = item.get("itemName");
+    // var id = $(e.currentTarget).data("id");
+
+    // var item = foods.get(id);
+    // var name = item.get("itemName");
+    this.model.set('added', true);
+    console.log('adding', this.model.get('added'));
 		myFoods.add( this.model );
 	}
 });

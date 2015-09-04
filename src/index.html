@@ -7,7 +7,8 @@
     <meta name="author" content="Yuichi Hagio">
     <meta name="description" content="Health Tracking App">
     <title>Health Tracker</title>
-    <link rel="stylesheet" href="css/main.css"></link>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css" media="screen"> -->
+    <link rel="stylesheet" href="css/main.css" media="screen"></link>
   </head>
   <body>
     <div class="container">
@@ -56,7 +57,7 @@
     <!-- List Item Template -->
     <script type="text/template" id="list-item-template">
       <li class='listItem'>
-        <p><%= item.get("itemName") %> - <%= item.get("brandName") %><span class='addButtonSpan'><button class='addButton' data-id="<%= item.get('id') %>">Add</button></span></p>
+        <p><%= item.get("itemName") %> - <%= item.get("brandName") %><span class='addButtonSpan'><button class='<%= item.get("added") ? "removeButton" : "addButton" %>' data-id="<%= item.get('id') %>"><%= item.get("added") ? "Remove" : "Add" %></button></span></p>
         <hr />
         <p><%= item.get("servingSize") %> <%= item.get("servingUnit") %></p>
         <p>Calories:<%= item.get("calories") %></p>
