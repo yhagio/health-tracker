@@ -1,4 +1,9 @@
 "use strict";
+var foods;
+var myFoods;
+var searchBoxView;
+var searchResultView;
+var myFoodsView;
 
 // ======================== Food Item
 var Food = Backbone.Model.extend({});
@@ -9,25 +14,28 @@ var Foods = Backbone.Collection.extend({
 });
 
 // ======================== My Foods Collection
-var MyFoods = Backbone.Collection.extend({
-  model: Food
+var MyFoods = Backbone.Firebase.Collection.extend({
+  model: Food,
+  url: "https://healthtrackingbbone.firebaseio.com"
 });
 
 // ======================== Search View
 // Use Search Form to fetch data from Nutritionix server
 // and display the data as a list
-var SearchView = Backbone.View.extend({
+var SearchBoxView = Backbone.View.extend({
   el: $('#main'),
 
   initialize: function(){
-    _.bindAll(this, "render");
+    // _.bindAll(this, "render");
     this.render();
   },
 
+  // Fire fetchData() on search with a keyword
   events: {
     "submit form": "fetchData"
   },
 
+  // Makes ajax call to fetch the foods data from Nutritionix server
   fetchData: function(e){
     e.preventDefault();
 
@@ -41,8 +49,9 @@ var SearchView = Backbone.View.extend({
       url: url,
       dataType: "JSON",
       success: function(data) {
-        console.log(data.hits);
+        // console.log(data.hits);
         if(data && data.hits.length > 0) {
+          var id;
           var brandName;
           var itemName;
           var calories;
@@ -51,7 +60,10 @@ var SearchView = Backbone.View.extend({
           var totalFat;
           var food;
 
+          // Iterate through the fetched data in order to
+          // create a model and add it to foods collection
           for(var i = 0; data.hits.length > i; i++){
+            id = data.hits[i].fields.item_id;
             brandName = data.hits[i].fields.brand_name;
             itemName = data.hits[i].fields.item_name;
             calories = data.hits[i].fields.nf_calories;
@@ -59,7 +71,9 @@ var SearchView = Backbone.View.extend({
             servingUnit = data.hits[i].fields.nf_serving_size_unit;
             totalFat = data.hits[i].fields.nf_total_fat || "N/A";
 
+            // Create a food model
             food = new Food({
+              id: id,
               brandName: brandName,
               itemName: itemName,
               calories: calories,
@@ -68,7 +82,9 @@ var SearchView = Backbone.View.extend({
               totalFat: totalFat
             });
 
+            // Add each food model to foods collection
             foods.add(food);
+            // console.log('foods', foods);
           }
         } else {
           console.log('None');
@@ -85,30 +101,91 @@ var SearchView = Backbone.View.extend({
   render: function(){
     var template = _.template($('#search-page-template').html());
     this.$el.html(template);
+  }
+});
 
+
+// Display returned foods data on search
+var SearchResultView = Backbone.View.extend({
+
+  el: $('#resultList'),
+
+  initialize: function(){
+    this.listenTo(this.collection, 'add', this.render);
+  },
+
+  render: function(){
     var self = this;
-    var listTemplate;
-    _(foods.models).each(function(item){
-      listTemplate = _.template($("#list-item-template").html());
-      $('#resultList').append(listTemplate({item: item}));
+    var foodItem;
+
+    _(this.collection.models).each(function(item) {
+      // console.log('item: ', item);
+      foodItem = new FoodItemView({model: item});
+      // console.log('foodItem: ', self.$el);
+      self.$el.append(foodItem.render());
     }, this);
   }
 });
+
+// Individual food item
+var FoodItemView = Backbone.View.extend({
+
+  template : _.template($('#list-item-template').html()),
+
+	events: {
+		'click .addButton' : 'addToMyFoods'
+	},
+
+	initialize: function() {
+    _.bindAll(this, 'render');
+		// this.render();
+	},
+
+	render: function() {
+    // this.$el.html(this.template({item: this.model}));
+		return this.$el.html(this.template({item: this.model}));
+	},
+
+	addToMyFoods: function(e) {
+    e.preventDefault();
+    var id = $(e.currentTarget).data("id");
+    console.log('adding', id)
+    var item = foods.get(id);
+    var name = item.get("itemName");
+		myFoods.add( this.model );
+	}
+});
+
 
 // ======================== My Foods View
 var MyFoodsView = Backbone.View.extend({
   el: '#main',
 
+  initialize: function(){
+    this.render();
+  },
+
   render: function(){
+    // console.log(this.collection);
     var template = _.template($('#myfoods-template').html());
     this.$el.html(template);
+
+    var self = this;
+    var listTemplate;
+    _(this.collection.models).each(function(item) {
+
+      var foodItem = new FoodItemView({model: item});
+      $("#myFoods").append(foodItem.render());
+    }, this);
   }
 });
 
 // ============= Create Collection and SearchView
-var foods = new Foods([]);
-var searchView = new SearchView();
-var myFoodsView = new MyFoodsView();
+foods = new Foods();
+myFoods = new MyFoods();
+searchBoxView = new SearchBoxView();
+searchResultView = new SearchResultView({collection: foods});
+myFoodsView = new MyFoodsView({collection: myFoods});
 
 
 // ======================== Routing
@@ -122,10 +199,11 @@ var Router = Backbone.Router.extend({
 var router = new Router;
 
 router.on('route:search', function() {
-  searchView.render();
+  searchBoxView.render();
 });
 
-router.on('route:myfoods', function(id) {
+router.on('route:myfoods', function() {
+  searchResultView.remove();
   myFoodsView.render();
 });
 

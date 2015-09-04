@@ -18,6 +18,10 @@
       <div id="main">
         <!-- The template will be displayed here -->
       </div>
+
+      <ul id="resultList" class="List">
+        <!-- Display user's search results here -->
+      </ul>
     </div>
 
     <!-- Search + Search Result template -->
@@ -33,9 +37,11 @@
         </form>
       </div>
 
-      <ul id="resultList" class="List">
+
+      <!-- <ul id="resultList" class="List"> -->
         <!-- Display user's search results here -->
-      </ul>
+      <!-- </ul> -->
+
     </script>
 
     <!-- My Foods Template -->
@@ -55,7 +61,7 @@
     <!-- List Item Template -->
     <script type="text/template" id="list-item-template">
       <li class='listItem'>
-        <p><%= item.get("itemName") %> - <%= item.get("brandName") %><span class='addButtonSpan'><button class='addButton'>Add</button></span></p>
+        <p><%= item.get("itemName") %> - <%= item.get("brandName") %><span class='addButtonSpan'><button class='addButton' data-id="<%= item.get('id') %>">Add</button></span></p>
         <hr />
         <p><%= item.get("servingSize") %> <%= item.get("servingUnit") %></p>
         <p>Calories:<%= item.get("calories") %></p>
@@ -66,6 +72,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.2/backbone-min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

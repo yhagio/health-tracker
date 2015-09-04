@@ -33,3 +33,5 @@ Routes
 - '/' - User can search foods and it will display the results, and user can add foods from the results to myfoods list
 - '/myfoods' - User can see the total calories of the foods added, and also remove foods
 - '/'
+
+- [Delegating events to sub-views in Backbone.js](http://stackoverflow.com/questions/8603705/delegating-events-to-sub-views-in-backbone-js)
