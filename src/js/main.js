@@ -162,7 +162,14 @@ var MyFoodsView = Backbone.View.extend({
   el: '#main',
 
   initialize: function(){
-    this.render();
+    // this.render();
+    // console.log('window.location', window.location)
+    if(window.location.hash === "#/myfoods") {
+      this.listenTo(this.collection, 'sync', this.render);
+      this.listenTo(this.collection, 'remove', this.render);
+      this.listenTo(this.collection, 'destroy', this.render);
+    }
+
   },
 
   render: function(){
@@ -172,13 +179,19 @@ var MyFoodsView = Backbone.View.extend({
 
     var self = this;
     var listTemplate;
+    var total = 0;
     _(this.collection.models).each(function(item) {
 
       var foodItem = new FoodItemView({model: item});
       $("#myFoods").append(foodItem.render());
+
+      total += item.get('calories');
     }, this);
+
+    $("#totalCalories").text(total);
   }
 });
+
 
 // ============= Create Collection and SearchView
 foods = new Foods();
