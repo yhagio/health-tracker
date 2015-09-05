@@ -1,4 +1,15 @@
 "use strict";
+// Semantic UI
+
+$(document).ready(function(){
+   $('.ui .item').on('click', function() {
+      $('.ui .item').removeClass('active');
+      $(this).addClass('active');
+   });
+});
+
+
+// Variable declarations
 var foods;
 var myFoods;
 var searchBoxView;
@@ -134,6 +145,10 @@ var SearchResultView = Backbone.View.extend({
 // Individual food item
 var FoodItemView = Backbone.View.extend({
 
+  tagName: 'div',
+
+  className: 'item',
+
   template : _.template($('#list-item-template').html()),
 
 	events: {
@@ -193,6 +208,7 @@ var MyFoodsView = Backbone.View.extend({
 
       _(self.collection.models).each(function(item) {
         foodItem = new MyFoodItemView({collection: self.collection, model: item});
+        // console.log(foodItem.render().context.innerHTML);
         self.$el.append(foodItem.render());
 
         total += item.get('calories');
@@ -206,6 +222,10 @@ var MyFoodsView = Backbone.View.extend({
 // ======================== My Food Item View
 var MyFoodItemView = Backbone.View.extend({
 
+  tagName: 'div',
+
+  className: 'item',
+
   template : _.template($('#list-item-template').html()),
 
 	events: {
@@ -217,10 +237,12 @@ var MyFoodItemView = Backbone.View.extend({
 	},
 
   render: function() {
+    // console.log('view: ',this.$el.html(this.template({item: this.model})));
 		return this.$el.html(this.template({item: this.model}));
 	},
 
   removeFromMyFoods: function(e) {
+    // console.log('delete');
     e.preventDefault();
     myFoods.remove(this.model);
   }

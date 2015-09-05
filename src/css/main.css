@@ -1,4 +1,4 @@
-html, body {
+/*html, body {
   font-family: sans-serif;
   color: #777;
 }
@@ -30,7 +30,6 @@ header {
   text-align: center;
 }
 
-/* Form */
 .formBox {
   margin-top: 20px;
 }
@@ -60,7 +59,6 @@ header {
   background-color: #ccc;
 }
 
-/* Result List */
 
 .List {
   padding: 10px;
@@ -79,10 +77,6 @@ header {
   word-wrap: break-word;
 }
 
-/*.buttonSpan {
-  float: right;
-}*/
-
 .addButton,
 .removeButton {
   position: absolute;
@@ -98,4 +92,4 @@ header {
 .addButton:active,
 .removeButton:active {
   background-color: #ccc;
-}
+}*/
