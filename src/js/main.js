@@ -3,6 +3,7 @@ var foods;
 var myFoods;
 var searchBoxView;
 var searchResultView;
+var myFoodsHeaderView;
 var myFoodsView;
 
 // ======================== Food Item
@@ -30,7 +31,6 @@ var SearchBoxView = Backbone.View.extend({
   el: $('#main'),
 
   initialize: function(){
-    // _.bindAll(this, "render");
     this.render();
   },
 
@@ -53,6 +53,8 @@ var SearchBoxView = Backbone.View.extend({
       url: url,
       dataType: "JSON",
       success: function(data) {
+        foods.reset();
+        console.log('foods.length', foods);
         // console.log(data.hits);
         if(data && data.hits.length > 0) {
           var id;
@@ -67,7 +69,6 @@ var SearchBoxView = Backbone.View.extend({
           // Iterate through the fetched data in order to
           // create a model and add it to foods collection
           for(var i = 0; data.hits.length > i; i++){
-            console.log(data.hits[i].fields.item_id);
             id = data.hits[i].fields.item_id;
             brandName = data.hits[i].fields.brand_name;
             itemName = data.hits[i].fields.item_name;
@@ -89,7 +90,6 @@ var SearchBoxView = Backbone.View.extend({
 
             // Add each food model to foods collection
             foods.add(food);
-            // console.log('foods', foods);
           }
         } else {
           console.log('None');
@@ -116,17 +116,16 @@ var SearchResultView = Backbone.View.extend({
   el: $('#resultList'),
 
   initialize: function(){
-    this.listenTo(this.collection, 'add', this.render);
+    this.listenTo(this.collection, 'add remove', this.render);
   },
 
   render: function(){
+    this.$el.empty();
     var self = this;
     var foodItem;
 
     _(this.collection.models).each(function(item) {
-      // console.log('item: ', item);
       foodItem = new FoodItemView({model: item});
-      // console.log('foodItem: ', self.$el);
       self.$el.append(foodItem.render());
     }, this);
   }
@@ -142,60 +141,88 @@ var FoodItemView = Backbone.View.extend({
 	},
 
 	initialize: function() {
-    _.bindAll(this, 'render');
-		// this.render();
+
 	},
 
 	render: function() {
-    // this.$el.html(this.template({item: this.model}));
 		return this.$el.html(this.template({item: this.model}));
 	},
 
 	addToMyFoods: function(e) {
     e.preventDefault();
-    // var id = $(e.currentTarget).data("id");
-
-    // var item = foods.get(id);
-    // var name = item.get("itemName");
     this.model.set('added', true);
-    console.log('adding', this.model.get('added'));
-		myFoods.add( this.model );
+		myFoods.add(this.model);
+    foods.remove(this.model);
 	}
 });
 
+// ============================================== //
+// ============================================== //
+// ================== My Foods ================== //
+// ============================================== //
+// ============================================== //
+
+// ======================== My Foods Header View
+var MyFoodsHeaderView = Backbone.View.extend({
+  el: '#main',
+  initialize: function(){
+    this.render();
+  },
+  render: function(){
+    var template = _.template($('#myfoods-header-template').html());
+    this.$el.html(template);
+  }
+});
 
 // ======================== My Foods View
 var MyFoodsView = Backbone.View.extend({
-  el: '#main',
+  el: '#resultList',
 
   initialize: function(){
-    // this.render();
-    // console.log('window.location', window.location)
-    if(window.location.hash === "#/myfoods") {
-      this.listenTo(this.collection, 'sync', this.render);
-      this.listenTo(this.collection, 'remove', this.render);
-      this.listenTo(this.collection, 'destroy', this.render);
-    }
-
+    this.listenTo(this.collection, 'sync remove', this.render);
   },
 
   render: function(){
-    // console.log(this.collection);
-    var template = _.template($('#myfoods-template').html());
-    this.$el.html(template);
+    this.$el.empty();
 
     var self = this;
-    var listTemplate;
+    var foodItem;
     var total = 0;
-    _(this.collection.models).each(function(item) {
 
-      var foodItem = new FoodItemView({model: item});
-      $("#myFoods").append(foodItem.render());
+    if (window.location.hash === "#/myfoods") {
 
-      total += item.get('calories');
-    }, this);
+      _(self.collection.models).each(function(item) {
+        foodItem = new MyFoodItemView({collection: self.collection, model: item});
+        self.$el.append(foodItem.render());
 
-    $("#totalCalories").text(total);
+        total += item.get('calories');
+      }, this);
+
+      $("#totalCalories").text(total);
+    }
+  }
+});
+
+// ======================== My Food Item View
+var MyFoodItemView = Backbone.View.extend({
+
+  template : _.template($('#list-item-template').html()),
+
+	events: {
+		'click .removeButton' : 'removeFromMyFoods'
+	},
+
+	initialize: function() {
+
+	},
+
+  render: function() {
+		return this.$el.html(this.template({item: this.model}));
+	},
+
+  removeFromMyFoods: function(e) {
+    e.preventDefault();
+    myFoods.remove(this.model);
   }
 });
 
@@ -205,8 +232,8 @@ foods = new Foods();
 myFoods = new MyFoods();
 searchBoxView = new SearchBoxView();
 searchResultView = new SearchResultView({collection: foods});
+myFoodsHeaderView = new MyFoodsHeaderView();
 myFoodsView = new MyFoodsView({collection: myFoods});
-
 
 // ======================== Routing
 var Router = Backbone.Router.extend({
@@ -220,10 +247,12 @@ var router = new Router;
 
 router.on('route:search', function() {
   searchBoxView.render();
+  searchResultView.render();
 });
 
 router.on('route:myfoods', function() {
-  searchResultView.remove();
+  foods.reset();
+  myFoodsHeaderView.render();
   myFoodsView.render();
 });
 

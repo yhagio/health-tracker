@@ -12,6 +12,12 @@ button {
   outline: 0;
 }
 
+a {
+  text-decoration: none;
+  padding: 10px;
+  background-color: #ddd;
+}
+
 .container {
   padding: 10px
 }
@@ -21,6 +27,9 @@ header {
 }
 
 /* Form */
+.formBox {
+  margin-top: 20px;
+}
 
 .form {
   width: 100%;

@@ -16,28 +16,33 @@
         <h1>Health Tracker</h1>
       </header>
 
-      <div id="main">
-        <!-- The template will be displayed here -->
-      </div>
+      <!-- The template will be displayed here -->
+      <div id="main"></div>
 
-      <ul id="resultList" class="List">
-        <!-- Display user's search results here -->
-      </ul>
+      <!-- Display user's search results here -->
+      <ul id="resultList" class="List"></ul>
     </div>
 
     <!-- Search + Search Result template -->
     <script type="text/template" id="search-page-template">
       <h3>Search Food</h3>
       <a href="#/myfoods">MyFoods</a>
-
       <!-- Search Form -->
-      <div id="formBox">
+      <div id="formBox" class="formBox">
         <form class="form">
           <input type="text" class="inputForm" placeholder="Type a food name" required autofocus>
           <button type="submit" class="submitButton">Search</button>
         </form>
       </div>
+    </script>
 
+    <!-- My Foods Header Template -->
+    <script type="text/template" id="myfoods-header-template">
+      <h3>MyFoods</h3>
+      <a href="/">Home</a>
+      <p class="total">
+        Total: <span id="totalCalories">0</span> calories
+      </p>
     </script>
 
     <!-- My Foods Template -->
@@ -45,9 +50,8 @@
       <h3>MyFoods</h3>
       <a href="/">Home</a>
 
-      <ul id="myFoods">
-        <!-- Display user's food list -->
-      </ul>
+      <!-- Display user's food list -->
+      <ul id="myFoods"></ul>
       <hr>
       <p class="total">
         Total: <span id="totalCalories">0</span> calories
@@ -57,7 +61,7 @@
     <!-- List Item Template -->
     <script type="text/template" id="list-item-template">
       <li class='listItem'>
-        <p><%= item.get("itemName") %> - <%= item.get("brandName") %><span class='addButtonSpan'><button class='<%= item.get("added") ? "removeButton" : "addButton" %>' data-id="<%= item.get('id') %>"><%= item.get("added") ? "Remove" : "Add" %></button></span></p>
+        <p><%= item.get("itemName") %> - <%= item.get("brandName") %><span class='addButtonSpan'><button class='<%= item.get("added") ? "removeButton" : "addButton" %>' data-id="<%= item.get('id') %>"><%= item.get("added") ? "X" : "Add" %></button></span></p>
         <hr />
         <p><%= item.get("servingSize") %> <%= item.get("servingUnit") %></p>
         <p>Calories:<%= item.get("calories") %></p>
