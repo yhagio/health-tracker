@@ -198,7 +198,7 @@ var MyFoodsView = Backbone.View.extend({
         total += item.get('calories');
       }, this);
 
-      $("#totalCalories").text(total);
+      $("#totalCalories").text(Math.round(total));
     }
   }
 });
