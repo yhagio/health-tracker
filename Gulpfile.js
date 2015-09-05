@@ -1,22 +1,18 @@
 var gulp = require('gulp');
 var minifyCss = require('gulp-minify-css');
-var concatCss = require('gulp-concat-css');
 var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
 var minifyHTML = require('gulp-minify-html');
 
 // Minify CSS
 gulp.task('css', function() {
   gulp.src('./src/css/*.css')
-    .pipe(concatCss("./src/css/bundle.css"))
     .pipe(minifyCss())
     .pipe(gulp.dest('./dist/css'));
 });
 
 // Minify JavaScript
 gulp.task('js', function() {
-  gulp.src('./src/js/*.js')
-    .pipe(concat('./src/js/bundle.js'))
+  gulp.src('./src/js/bundle.js')
     .pipe(uglify())
     .pipe(gulp.dest('./dist/js'));
 });

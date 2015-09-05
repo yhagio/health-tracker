@@ -8,52 +8,43 @@
     <meta name="description" content="Health Tracking App">
     <title>Health Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.3/semantic.min.css" media="screen">
-    <link rel="stylesheet" href="css/main2.css" media="screen"></link>
+    <link rel="stylesheet" href="css/main.css" media="screen">
   </head>
   <body>
-
+    <!-- Navigation Bar at top -->
     <div class="ui secondary pointing menu fixed nav-bar">
-      <!-- <ul class="title-area"> -->
-        <!-- <li class="name"> -->
-          <a class="item" href="/"><h3>Health Tracker</h3></a>
-        <!-- </li> -->
-        <!-- <ul class="title-area"> -->
-          <!-- <li> -->
-            <a class="item active" href="/"><span>Search</span></a>
-          <!-- </li> -->
-          <!-- <li> -->
-            <a class="item" href="#/myfoods"><span>My Foods</span></a>
-          <!-- </li> -->
-        <!-- </ul> -->
+      <a class="item" href="/"><h3>Health Tracker</h3></a>
+      <a class="item active" href="/"><span>Search</span></a>
+      <a class="item" href="#/myfoods"><span>My Foods</span></a>
     </div>
 
-
+    <!-- Main Content Area -->
     <div class="container">
 
-      <!-- The template will be displayed here -->
-      <div id="main"></div>
+      <div id="error" class="errorBox">
+        <!-- Error message will be displayed here -->
+      </div>
 
-      <!-- Display user's search results here -->
-      <!-- <ul id="resultList" class="List row"></ul> -->
-      <div id="resultList" class="ui middle aligned divided list"></div>
+      <div id="main">
+        <!-- SearchBoxView / MyFoodsHeaderView will be displayed here -->
+      </div>
+
+      <div id="resultList" class="ui middle aligned divided list">
+        <!-- SearchResultView / MyFoodsView will be displayed here -->
+      </div>
     </div>
 
-    <!-- Search + Search Result template -->
+    <!-- Search Form + Search Result template -->
     <script type="text/template" id="search-page-template">
-      <!-- <a href="#/myfoods">My Food List</a> -->
       <h3>Search Food</h3>
-      <!-- Search Form -->
 
-      <!-- <div id="formBox" class="formBox">
-        <form class="form">
-          <input type="text" class="inputForm" placeholder="Type a food name" required autofocus>
-          <button type="submit" class="submitButton">Search</button>
-        </form>
-      </div> -->
-
-      <form class="ui form">
+      <form class="ui form segment error">
         <div class="field">
-          <input type="text" class="inputForm" placeholder="Type a food name" required autofocus>
+          <input
+            type="text"
+            class="inputForm"
+            placeholder="Type a food keyword (i.e. Chips, Pepsi)"
+            autofocus>
         </div>
         <button class="ui teal inverted button" type="submit">Search</button>
       </form>
@@ -61,52 +52,42 @@
 
     <!-- My Foods Header Template -->
     <script type="text/template" id="myfoods-header-template">
-      <!-- <a href="/">Search a food</a> -->
       <h3>MyFoods</h3>
       <p class="total">
-        Total: <span id="totalCalories">0</span> calories
+        Total: <span id="totalCalories" class="totalCaloriesFont">0</span> calories
       </p>
       <hr>
     </script>
 
-
-
     <!-- List Item Template -->
     <script type="text/template" id="list-item-template">
-      <!-- <li class="listItem">
-        <p class="itemName"><%= item.get("itemName") %></p>
-        <p>Brand: <%= item.get("brandName") %></p>
-        <span class='buttonSpan'>
-          <button class='<%= item.get("added") ? "removeButton" : "addButton" %>' data-id="<%= item.get('id') %>"><%= item.get("added") ? "X" : "Add" %></button>
-        </span>
-        <hr />
-        <p><%= item.get("servingSize") %> <%= item.get("servingUnit") %></p>
-        <p>Calories: <%= item.get("calories") %></p>
-        <p>Total Fat: <%= item.get("totalFat") %></p>
-      </li> -->
-
 
       <div class="right floated content">
-        <div class='ui button <%= item.get("added") ? "ui red inverted button removeButton" : "ui green inverted button addButton" %>' data-id="<%= item.get('id') %>"><%= item.get("added") ? "X" : "Add" %></div>
+        <div class='ui button <%= item.get("added") ? "ui red inverted button removeButton" : "ui green inverted button addButton" %>' data-id="<%= item.get('id') %>">
+          <%= item.get("added") ? "X" : "Add" %>
+        </div>
       </div>
       <div class="content">
         <h3 class="itemName"><%= item.get("itemName") %></h3>
         <p>Brand: <%= item.get("brandName") %></p>
-        <p><%= item.get("servingSize") %> <%= item.get("servingUnit") %></p>
-        <p><span class="caloriesText">Calories : </span> <%= item.get("calories") %> ( <span class="fatText">Total Fat : </span> <%= item.get("totalFat") %> )</p>
-        <!-- <p>Total Fat: <%= item.get("totalFat") %></p> -->
+        <p>
+          <%= item.get("servingSize") %>
+          <%= item.get("servingUnit") %>
+        </p>
+        <p>
+          <span class="caloriesText">Calories : </span> <%= item.get("calories") %>
+          ( <span class="fatText">Total Fat : </span> <%= item.get("totalFat") %> )
+        </p>
       </div>
     </script>
 
+    <!-- Loading bunch of Javascript files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.2/backbone-min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.3/semantic.min.js"></script>
-
-
-    <script src="js/main.js"></script>
+    <script src="js/bundle.js"></script>
   </body>
 </html>

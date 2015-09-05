@@ -1,95 +1,96 @@
-/*html, body {
-  font-family: sans-serif;
-  color: #777;
-}
-
-ul {
-  list-style-type: none;
-}
-
-p {
-  line-height: 1;
-}
-
-button {
-  border: none;
-  outline: 0;
-}
-
-a {
-  text-decoration: none;
-  padding: 10px;
-  background-color: #ddd;
+html,
+body {
+  background-color: #000;
+  color: #fff;
 }
 
 .container {
-  padding: 10px
+  margin: 70px auto 10px;
+  max-width: 600px;
 }
 
-header {
-  text-align: center;
+/*
+  Overwriting Semantic UI CSS
+*/
+
+.ui.fixed.nav-bar {
+  background-color: #22be34;
 }
 
-.formBox {
-  margin-top: 20px;
+.ui.fixed.nav-bar > .item {
+  color: #fff;
 }
 
-.form {
-  width: 100%;
-  text-align: center;
+.ui.secondary.pointing.menu .active.item {
+  color: #fff;
+  border-color: #fff;
 }
 
-.inputForm {
-  width: 95%;
-  height: 30px;
-  font-size: 1em;
-  padding-left: 5px;
-  outline: 0;
+.ui.secondary.pointing.menu .item:hover {
+  color: #e74c3c;
 }
 
-.submitButton {
-  width: 95%;
-  height: 30px;
-  background-color: #ddd;
-  padding: 5px;
-  font-size: 1em;
+.ui.segment {
+  background-color: #000;
 }
 
-.submitButton:active {
-  background-color: #ccc;
+.item {
+  border-bottom: 1px solid #fff;
 }
 
-
-.List {
+.item > .content {
   padding: 10px;
 }
 
-.listItem {
-  color: #222;
-  background: linear-gradient(to bottom, #87e0fd 0%,#53cbf1 40%,#05abe0 100%);
-  position: relative;
-  margin: 0 auto 5px;
-  padding: 5px 10px;
-}
-
 .itemName {
-  margin-right: 40px;
-  word-wrap: break-word;
+  color: #2ecc71;
 }
 
-.addButton,
-.removeButton {
-  position: absolute;
-  right: 0px;
-  top: 0;
-  width: 50px;
-  height: 33px;
+.caloriesText {
+  color: #e67e22;
+}
+
+.fatText {
+  color: #f1c40f;
+}
+
+.totalCaloriesFont {
+  color: #54ffff;
+  font-size: 1.5em;
+}
+
+/*
+  Custom CSS for styling / animating Error Message
+*/
+
+.errorBox {
+  z-index: 1000;
+  text-align: center;
+  width: 100%;
+
+  margin: 5px auto 10px;
+}
+
+.errorMessage {
+  padding: 10px;
+  color: #e74c3c;
+  opacity: 0;
+  animation: fadeInOut 2s;
+  border: 1px solid #e74c3c;
   font-size: 1em;
-  border-radius: 0 0 0 10px;
-  box-shadow: -3px 3px 5px;
 }
 
-.addButton:active,
-.removeButton:active {
-  background-color: #ccc;
-}*/
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  16% {
+    opacity: 1;
+  }
+  84% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

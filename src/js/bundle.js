@@ -1,3 +1,23 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// Display an error message to user
+module.exports = {
+  displayErrorToUser: function(targetDOM, errorMessage, duration) {
+    // Create a message and display it
+    var pTag = document.createElement("p");
+    pTag.setAttribute("class", "errorMessage");
+    pTag.innerHTML = errorMessage;
+    targetDOM.appendChild(pTag);
+
+    // remove the message after 'duration' seconds
+    setTimeout(function() {
+      while (targetDOM.firstChild) {
+        targetDOM.removeChild(targetDOM.firstChild);
+      }
+    }, duration);
+  }
+}
+
+},{}],2:[function(require,module,exports){
 "use strict";
 
 // Requiring helpers.js via Browserify
@@ -311,3 +331,5 @@ router.on("route:myfoods", function() {
 });
 
 Backbone.history.start();
+
+},{"./helpers":1}]},{},[2]);
