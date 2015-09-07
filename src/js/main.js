@@ -296,18 +296,20 @@ var Router = Backbone.Router.extend({
   routes: {
     "": "search",
     "myfoods": "myfoods"
+  },
+
+  search: function() {
+    searchBoxView.render();
+    foods.reset();
+    searchResultView.render();
+  },
+
+  myfoods: function() {
+    myFoodsHeaderView.render();
+    myFoodsView.render();
   }
 });
 
 var router = new Router();
-
-router.on("route:search", function() {
-  searchBoxView.render();
-});
-
-router.on("route:myfoods", function() {
-  myFoodsHeaderView.render();
-  myFoodsView.render();
-});
 
 Backbone.history.start();
