@@ -1,5 +1,6 @@
 var FoodItemView = require('./foodItemView');
 
+// Display returned foods data on search view
 module.exports = Backbone.View.extend({
 
   el: $("#resultList"),

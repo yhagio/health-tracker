@@ -1,3 +1,4 @@
+// My Foods Header View
 module.exports = Backbone.View.extend({
   el: '#main',
 

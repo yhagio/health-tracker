@@ -3,6 +3,8 @@ var Food = require('./models');
 var app = require('./main');
 var error = document.getElementById("error");
 
+// Use Search Form to fetch data from Nutritionix server
+// and display the data as a list
 module.exports = Backbone.View.extend({
   el: $("#main"),
 

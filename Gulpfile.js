@@ -16,7 +16,7 @@ gulp.task('js', function() {
   gulp.src('./src/js/bundle.js')
     .pipe(uglify())
     .pipe(concat('bundle2.js'))
-    .pipe(gulp.dest('./src/js'));
+    .pipe(gulp.dest('./dist/js'));
 });
 
 // Minify HTML

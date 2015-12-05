@@ -6,6 +6,7 @@ var SearchResultView = require('./searchResultView');
 var MyFoodsHeaderView = require('./myFoodsHeaderView');
 var MyFoodsView = require('./myFoodsView');
 
+// Create each instance of Collection and View required
 app.foods = new Foods();
 app.myFoods = new MyFoods();
 app.searchBoxView = new SearchBoxView();
@@ -17,6 +18,7 @@ app.myFoodsView = new MyFoodsView({
   collection: app.myFoods
 });
 
+// Routing logic
 module.exports = Backbone.Router.extend({
   routes: {
     "": "search",

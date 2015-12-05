@@ -1,5 +1,6 @@
 var app = require('./main');
 
+// Individual food item view
 module.exports = Backbone.View.extend({
 
   tagName: 'div',
