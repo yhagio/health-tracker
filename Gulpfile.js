@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var minifyCss = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var minifyHTML = require('gulp-minify-html');
+var concat = require('gulp-concat');
 
 // Minify CSS
 gulp.task('css', function() {
@@ -14,7 +15,8 @@ gulp.task('css', function() {
 gulp.task('js', function() {
   gulp.src('./src/js/bundle.js')
     .pipe(uglify())
-    .pipe(gulp.dest('./dist/js'));
+    .pipe(concat('bundle2.js'))
+    .pipe(gulp.dest('./src/js'));
 });
 
 // Minify HTML
